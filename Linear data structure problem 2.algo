@@ -1,0 +1,52 @@
+// solution 1
+
+ALGORITHM Duplicated elements
+VAR
+    set1: ARRAY_OF INTEGER[len1]
+    set2: ARRAY_OF INTEGER[len2]
+    i:INTEGER
+    j:INTEGER
+    sum:INTEGER:=0
+BEGIN
+    FOR i FROM 0 TO set1.length-1 STEP 1  DO
+        FOR j FROM 0 TO set2.length-1 STEP 1  DO
+            IF (set1[i] == set2[j]) THEN
+                sum+=set1[i]*2
+            END_IF
+        END_FOR
+    END_FOR
+
+    Write("The sum of duplicated elements :",sum)
+END
+
+// solution 2
+
+ALGORITHM Duplicated elements
+VAR
+    htab:HASH_TABLE<INTEGER,INTEGER>
+    set1:ARRAY_OF INTEGER[len1];
+    set2:ARRAY_OF INTEGER[len2];
+    i:INTEGER
+    sum:INTEGER:=0
+    
+BEGIN
+     FOR i FROM 0 TO set1.length-1 STEP 1  DO
+         htab.insert(set1[i],1);
+    END_FOR
+    FOR i FROM 0 TO set2.length-1 STEP 1  DO
+         IF (htab.lookup(set2[i])=TRUE) THEN
+             htab.insert(set2[i],2)
+         END_IF
+         ELSE
+             htab.insert(set2[i],1)
+         END_IF
+    END_FOR
+
+    FOR i FROM 0 TO set1.length-1 STEP 1  DO
+        IF (htab.get(set1[i])=2) THEN
+            sum+=set1[i]*2
+        END_IF
+    END_FOR
+
+    Write("The sum of duplicated elements :",sum)
+END
